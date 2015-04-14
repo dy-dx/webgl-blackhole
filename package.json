@@ -18,6 +18,7 @@
   , "coffeeify": "~1.0.0"
   , "dat-gui": "0.5.0"
   , "eases" : "1.0.6"
+  , "glslify": "1.6.0"
   , "gulp": "~3.8.11"
   , "gulp-jade": "1.0.0"
   , "gulp-sass": "dlmanning/gulp-sass#2.x"
@@ -26,6 +27,7 @@
   , "three-glslify": "2.0.1"
   , "vinyl-source-stream": "~1.1.0"
   , "watchify": "~3.1.0"
+  , "xtend": "4.0.0"
   }
 , "browserify": {
     "transform": [ "browserify-shim" ]

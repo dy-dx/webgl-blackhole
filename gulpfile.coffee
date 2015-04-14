@@ -2,6 +2,7 @@ gulp        = require 'gulp'
 watchify    = require 'watchify'
 browserify  = require 'browserify'
 coffeeify   = require 'coffeeify'
+glslify     = require 'glslify'
 browserSync = require 'browser-sync'
 source      = require 'vinyl-source-stream'
 jade        = require 'gulp-jade'
@@ -27,6 +28,7 @@ gulp.task 'watch', ['sass', 'jade'], ->
   watchify.args.extensions.push '.coffee'
   bundler = watchify(browserify('./src/js/main.coffee', watchify.args))
   bundler.transform(coffeeify)
+  bundler.transform(glslify)
 
   rebundle = ->
     bundler.bundle()

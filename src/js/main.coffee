@@ -3,6 +3,7 @@ window.DEBUG = true
 THREE = require 'three'
 Stats = require 'stats-js'
 testbed = require 'canvas-testbed'
+blackhole = require './blackhole'
 
 stats = null
 renderer = null
@@ -22,9 +23,6 @@ setupScene = ->
   camera.lookAt( new THREE.Vector3(0, 0, 0) )
   scene.add camera
 
-  ambientLight = new THREE.AmbientLight 0x404040
-  scene.add ambientLight
-
   pointLight = new THREE.PointLight 0xFFFFFF, 0.9
   pointLight.position.set -80, 80, -40
   scene.add pointLight
@@ -41,9 +39,10 @@ setupScene = ->
     for vert in [face.a, face.b, face.c]
       if rectGeom.vertices[vert].y < 0
         rectGeom.faces.splice(i, 1)
+        rectGeom.faceVertexUvs[0].splice(i, 1)
         break
-
-  rectMat = new THREE.MeshLambertMaterial(color: 0xFFFF00, wireframe: false)
+  # rectMat = new THREE.MeshLambertMaterial(color: 0xFFFF00, wireframe: false)
+  rectMat = new THREE.ShaderMaterial blackhole
   rectMesh = new THREE.Mesh(rectGeom, rectMat)
   rectMesh.position.y = -1
   scene.add rectMesh
