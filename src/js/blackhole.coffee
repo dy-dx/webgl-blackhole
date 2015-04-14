@@ -6,7 +6,7 @@ xtend = require('xtend')
 
 source = glslify
   vertex: './blackhole.vert'
-  fragment: './blackhole.frag'
+  fragment: './checkerboard.frag'
   sourceOnly: true
 
 createShader = require('three-glslify')(THREE)

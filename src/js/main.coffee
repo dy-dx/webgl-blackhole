@@ -44,7 +44,7 @@ setupScene = ->
   # rectMat = new THREE.MeshLambertMaterial(color: 0xFFFF00, wireframe: false)
   rectMat = new THREE.ShaderMaterial blackhole
   rectMesh = new THREE.Mesh(rectGeom, rectMat)
-  rectMesh.position.y = -1
+  rectMesh.position.y = 30
   scene.add rectMesh
 
 
