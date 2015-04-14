@@ -25,25 +25,27 @@ setupScene = ->
   ambientLight = new THREE.AmbientLight 0x404040
   scene.add ambientLight
 
-  pointLight = new THREE.PointLight 0xFFFFFF
-  pointLight.position.set -10, 80, 0
+  pointLight = new THREE.PointLight 0xFFFFFF, 0.9
+  pointLight.position.set -80, 80, -40
   scene.add pointLight
 
+  #   Make a subdivided rectangle by creating a box and deleting the faces that
+  # we don't want. This is so dumb....but it works for now.
   rectLength = 100
   rectHeight = 60
-  rectShape = new THREE.Shape()
-  rectShape.moveTo 0, 0
-  rectShape.lineTo 0, rectHeight
-  rectShape.lineTo rectLength, rectHeight
-  rectShape.lineTo rectLength, 0
-  rectShape.lineTo 0, 0
+  # number of subdivisions
+  div = Math.sqrt(100)
+  rectGeom = new THREE.BoxGeometry(rectLength, 2, rectHeight, div, 1, div)
+  # Delete the faces that we don't want.
+  for face, i in rectGeom.faces by -1
+    for vert in [face.a, face.b, face.c]
+      if rectGeom.vertices[vert].y < 0
+        rectGeom.faces.splice(i, 1)
+        break
 
-  rectGeom = new THREE.ShapeGeometry(rectShape)
-  rectMat = new THREE.MeshLambertMaterial(color: 0xFFFF00, wireframe: true)
+  rectMat = new THREE.MeshLambertMaterial(color: 0xFFFF00, wireframe: false)
   rectMesh = new THREE.Mesh(rectGeom, rectMat)
-  rectMesh.rotation.x = -Math.PI/2
-  rectMesh.position.x = -rectLength/2
-  rectMesh.position.z = rectHeight/2
+  rectMesh.position.y = -1
   scene.add rectMesh
 
 
@@ -54,7 +56,6 @@ render = (context, width, height, ms) ->
   window.DEBUG && stats.end()
 
 resize = (width, height) ->
-  console.log width, height
   renderer.setSize width, height
   camera.aspect = width/height
   camera.updateProjectionMatrix()
