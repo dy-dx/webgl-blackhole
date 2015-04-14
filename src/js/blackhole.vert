@@ -1,3 +1,5 @@
+uniform float time;
+
 varying vec2 vUv;
 varying vec3 vPos;
 varying vec3 vNormal;
@@ -12,11 +14,11 @@ void main() {
   float plen = length(p);
 
   // gravity
-  p.y = -500.0/plen;
+  p.y = 440.0 * (0.5*sin(time/50.0) - 0.5) / plen;
 
   // swirl
   float r = plen;
-  float rot = -1.0 / pow(r*0.05, 1.5);
+  float rot = (0.5*sin(time/50.0) - 0.5) / pow(r*0.05, 1.5);
 
   float px = p.x;
   px  = p.x*cos(rot) - p.z*sin(rot);

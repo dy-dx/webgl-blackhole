@@ -9,6 +9,8 @@ stats = null
 renderer = null
 scene = null
 camera = null
+rectMesh = null
+time = 0
 
 if window.DEBUG
   stats = new Stats()
@@ -24,7 +26,7 @@ setupScene = ->
   scene.add camera
 
   pointLight = new THREE.PointLight 0xFFFFFF, 0.9
-  pointLight.position.set -80, 80, -40
+  pointLight.position.set -80, 100, -40
   scene.add pointLight
 
   #   Make a subdivided rectangle by creating a box and deleting the faces that
@@ -32,7 +34,7 @@ setupScene = ->
   rectLength = 100
   rectHeight = 60
   # number of subdivisions
-  div = 64
+  div = 96
   rectGeom = new THREE.BoxGeometry(rectLength, 2, rectHeight, div, 1, div)
   # Delete the faces that we don't want.
   for face, i in rectGeom.faces by -1
@@ -51,6 +53,9 @@ setupScene = ->
 
 render = (context, width, height, ms) ->
   window.DEBUG && stats.begin()
+  time += 1
+  # console.log rectMesh.material
+  rectMesh.material.uniforms.time.value = time
   renderer.render scene, camera
   window.DEBUG && stats.end()
 
@@ -71,7 +76,7 @@ onLoad = ->
     onResize: resize
     context: 'webgl'
     canvas: document.createElement('canvas')
-    once: true
+    once: false
     retina: false
     resizeDebounce: 100
 
