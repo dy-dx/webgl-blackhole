@@ -18,8 +18,8 @@ if window.DEBUG
 setupScene = ->
   scene = new THREE.Scene()
   camera = new THREE.PerspectiveCamera 70, 1, 1, 10000
-  camera.position.y = 100
-  camera.position.z = 50
+  camera.position.y = 80
+  camera.position.z = 60
   camera.lookAt( new THREE.Vector3(0, 0, 0) )
   scene.add camera
 
@@ -32,7 +32,7 @@ setupScene = ->
   rectLength = 100
   rectHeight = 60
   # number of subdivisions
-  div = Math.sqrt(100)
+  div = 64
   rectGeom = new THREE.BoxGeometry(rectLength, 2, rectHeight, div, 1, div)
   # Delete the faces that we don't want.
   for face, i in rectGeom.faces by -1
